@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Generate AI</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI STUDIO</p>
+          <h1>Video Generate AI</h1>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="panel form-panel">
+          <h2>Create a new video</h2>
+
+          <form id="generate-form">
+            <label for="prompt">Prompt</label>
+            <textarea
+              id="prompt"
+              name="prompt"
+              rows="6"
+              placeholder="A cinematic aerial shot of a futuristic city at sunset, glowing lights, smooth motion, ultra-detailed"
+              required
+            ></textarea>
+
+            <div class="row">
+              <div>
+                <label for="style">Style</label>
+                <select id="style" name="style">
+                  <option value="cinematic">Cinematic</option>
+                  <option value="nature">Nature</option>
+                  <option value="futuristic">Futuristic</option>
+                  <option value="fantasy">Fantasy</option>
+                  <option value="product">Product</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="duration">Duration (sec)</label>
+                <input id="duration" name="duration" type="number" value="8" min="3" max="20" />
+              </div>
+            </div>
+
+            <button type="submit" id="generate-btn">Generate video</button>
+          </form>
+
+          <div id="status" class="status" aria-live="polite"></div>
+        </section>
+
+        <section class="panel output-panel">
+          <h2>Preview</h2>
+
+          <div class="video-frame">
+            <video id="video-player" controls playsinline poster="/preview-poster.svg" muted></video>
+            <div id="empty-state" class="empty-state">
+              Your generated output will appear here.
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

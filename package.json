@@ -1,0 +1,14 @@
+{
+  "name": "video-generate-ai",
+  "version": "1.0.0",
+  "description": "AI-style video generation web app prototype with local prompt-to-video generation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ffmpeg-static": "^5.2.0"
+  }
+}

@@ -1,0 +1,74 @@
+# Video Generate AI
+
+A lightweight AI-style video generation web app prototype built with Node.js and Express.
+
+This project generates a short MP4 from a text prompt using a local ffmpeg pipeline. It is designed as a practical MVP for a video generation product and can be extended with real AI providers such as Runway, Replicate, Stability, or OpenAI image/video APIs.
+
+## Features
+
+- Text-to-video prompt form
+- Style selection: cinematic, nature, futuristic, fantasy, product
+- Duration control
+- MP4 export with a generated preview
+- Simple express-based UI
+
+## Tech stack
+
+- Node.js
+- Express
+- ffmpeg-static
+
+## Getting started
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app:
+
+   ```bash
+   npm start
+   ```
+
+3. Open:
+
+   ```text
+   http://localhost:3000
+   ```
+
+## Notes
+
+- The app uses a local ffmpeg pipeline to create a stylized MP4 video from your prompt.
+- To extend it into a real AI video platform, connect providers like Replicate, Stability, Pika, or Runway and store generated assets in cloud storage.
+
+## Project structure
+
+```text
+video-generate-ai/
+├── public/
+│   ├── app.js
+│   ├── index.html
+│   ├── styles.css
+│   └── preview-poster.svg
+├── generated/
+├── server.js
+├── package.json
+├── README.md
+└── .gitignore
+```
+
+## Example prompt
+
+"A cinematic aerial shot of a futuristic city at sunset, glowing lights, smooth motion, ultra-detailed, cinematic composition"
+
+## Future upgrades
+
+- API-based real AI video generation
+- User authentication
+- Video history and gallery
+- Upload image-to-video workflows
+- Cloud storage and project management
+- Paid plan / quota limits
+- WebSocket progress updates
