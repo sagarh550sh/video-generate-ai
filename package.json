@@ -1,7 +1,7 @@
 {
   "name": "video-generate-ai",
-  "version": "1.0.0",
-  "description": "AI-style video generation web app prototype with local prompt-to-video generation",
+  "version": "2.0.0",
+  "description": "AI-powered video generation web app with real model integration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,6 +9,12 @@
   },
   "dependencies": {
     "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "sqlite3": "^5.1.6",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "replicate": "^0.32.2",
+    "axios": "^1.6.5",
     "ffmpeg-static": "^5.2.0"
   }
 }

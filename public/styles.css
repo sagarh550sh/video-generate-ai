@@ -1,71 +1,353 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Generate AI</title>
-    <link rel="stylesheet" href="/styles.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">AI STUDIO</p>
-          <h1>Video Generate AI</h1>
-        </div>
-      </header>
+* {
+  box-sizing: border-box;
+}
 
-      <main class="content-grid">
-        <section class="panel form-panel">
-          <h2>Create a new video</h2>
+:root {
+  --bg: #020817;
+  --panel: rgba(15, 23, 42, 0.85);
+  --panel-border: rgba(148, 163, 184, 0.2);
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --primary: #8b5cf6;
+  --primary-2: #38bdf8;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --shadow: rgba(15, 23, 42, 0.5);
+}
 
-          <form id="generate-form">
-            <label for="prompt">Prompt</label>
-            <textarea
-              id="prompt"
-              name="prompt"
-              rows="6"
-              placeholder="A cinematic aerial shot of a futuristic city at sunset, glowing lights, smooth motion, ultra-detailed"
-              required
-            ></textarea>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.28), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.25), transparent 30%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
 
-            <div class="row">
-              <div>
-                <label for="style">Style</label>
-                <select id="style" name="style">
-                  <option value="cinematic">Cinematic</option>
-                  <option value="nature">Nature</option>
-                  <option value="futuristic">Futuristic</option>
-                  <option value="fantasy">Fantasy</option>
-                  <option value="product">Product</option>
-                </select>
-              </div>
+.app-shell {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
 
-              <div>
-                <label for="duration">Duration (sec)</label>
-                <input id="duration" name="duration" type="number" value="8" min="3" max="20" />
-              </div>
-            </div>
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 32px;
+}
 
-            <button type="submit" id="generate-btn">Generate video</button>
-          </form>
+.brand {
+  min-width: 200px;
+}
 
-          <div id="status" class="status" aria-live="polite"></div>
-        </section>
+.eyebrow {
+  margin: 0 0 8px;
+  letter-spacing: 0.18em;
+  color: var(--primary-2);
+  font-size: 12px;
+  font-weight: 700;
+}
 
-        <section class="panel output-panel">
-          <h2>Preview</h2>
+h1, h2, p {
+  margin-top: 0;
+}
 
-          <div class="video-frame">
-            <video id="video-player" controls playsinline poster="/preview-poster.svg" muted></video>
-            <div id="empty-state" class="empty-state">
-              Your generated output will appear here.
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
 
-    <script src="/app.js"></script>
-  </body>
-</html>
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-btn,
+button,
+input[type='submit'] {
+  border: none;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.nav-btn {
+  color: var(--text);
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}
+
+.nav-btn:hover {
+  background: rgba(139, 92, 246, 0.3);
+}
+
+button,
+input[type='submit'] {
+  padding: 12px 20px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  color: white;
+  font-size: 0.95rem;
+}
+
+button:hover,
+input[type='submit']:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+button:disabled,
+input[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+.content {
+  display: grid;
+  gap: 32px;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) minmax(320px, 1fr);
+  gap: 24px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 20px 40px var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.panel-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+textarea,
+select,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'] {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  font: inherit;
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+  border-color: var(--primary);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.status {
+  margin-top: 16px;
+  min-height: 20px;
+  font-size: 0.9rem;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border-left: 3px solid var(--primary);
+}
+
+.status.error {
+  background: rgba(248, 113, 113, 0.1);
+  border-left-color: var(--error);
+  color: #fca5a5;
+}
+
+.status.success {
+  background: rgba(52, 211, 153, 0.1);
+  border-left-color: var(--success);
+  color: #86efac;
+}
+
+.video-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.video-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.video-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.video-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 12px;
+}
+
+.video-card-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.video-card-status.processing {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--warning);
+}
+
+.video-card-status.completed {
+  background: rgba(52, 211, 153, 0.2);
+  color: var(--success);
+}
+
+.video-card-status.failed {
+  background: rgba(248, 113, 113, 0.2);
+  color: var(--error);
+}
+
+.video-card-prompt {
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.video-card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+.video-frame {
+  position: relative;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  min-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+video {
+  width: 100%;
+  max-height: 540px;
+  display: none;
+  border-radius: 8px;
+  background: #020617;
+}
+
+video.visible {
+  display: block;
+}
+
+.empty-state {
+  color: var(--muted);
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.loader {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-2);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: var(--panel-border);
+  margin: 24px 0;
+}
+
+@media (max-width: 900px) {
+  .section {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
